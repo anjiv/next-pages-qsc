@@ -1,5 +1,6 @@
 import Link from "next/link"
 
+// Route - /team
 export default function TeamPage() {
   return (
     <>

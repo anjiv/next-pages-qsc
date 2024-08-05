@@ -1,5 +1,6 @@
 import Head from "next/head";
 
+// Route - /
 export default function Home() {
   return (
     <>
