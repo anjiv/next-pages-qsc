@@ -1,5 +1,6 @@
 import { Html, Head, Main, NextScript } from "next/document";
 
+// Runs only on server.
 export default function Document() {
   return (
     <Html lang="en">
