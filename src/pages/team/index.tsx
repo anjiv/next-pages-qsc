@@ -1,3 +1,10 @@
+import Link from "next/link"
+
 export default function TeamPage() {
-  return <h1>Team page</h1>
+  return (
+    <>
+      <Link href="/">Home</Link>
+      <h1>Team page</h1>
+    </>
+  );
 }
