@@ -4,7 +4,7 @@ import React from "react";
 
 export default function TodoPage({
   todos,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: {todos: any[]}) {
   return (
     <ul>
       {todos.map(todo => (
@@ -16,14 +16,9 @@ export default function TodoPage({
   );
 }
 
-// This will run every single time we go to todos page.
-export const getStaticProps = (async() => {
+TodoPage.getInitialProps = async() => {
   const data = await fetch("https://jsonplaceholder.typicode.com/todos").then(
     response => response.json()
   )
-  return {
-    props: { todos: data as any[] },
-    revalidate: 10, // revalidate after every 10seconds.
-  };
-}) satisfies GetStaticProps;
-// whatever is returned in this function is satisfied.
+  return {todos: data as any}
+}
