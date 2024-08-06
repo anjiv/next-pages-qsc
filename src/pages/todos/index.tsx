@@ -1,24 +1,28 @@
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import Link from "next/link";
-import React from "react";
+import db from "../../db/db";
 
-export default function TodoPage({
+export default function Todos({
   todos,
-}: {todos: any[]}) {
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <ul>
-      {todos.map(todo => (
-        <li key={todo.id}>
-          <Link href={`/todos/${todo.id}`}>{todo.title}</Link>
-        </li>
-      ))}
-    </ul>
+    <>
+      <Link href="/todos/new">New</Link>
+      <ul>
+        {todos.map(todo => (
+          <li key={todo.id}>
+            <Link href={`/todos/${todo.id}`}>{todo.title}</Link>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 
-TodoPage.getInitialProps = async() => {
-  const data = await fetch("https://jsonplaceholder.typicode.com/todos").then(
-    response => response.json()
-  )
-  return {todos: data as any}
-}
+export const getStaticProps = (async () => {
+  const data = await db.todo.findMany();
+
+  return {
+    props: { todos: data },
+  };
+}) satisfies GetStaticProps;
